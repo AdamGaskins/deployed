@@ -11,6 +11,8 @@ use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\Node\Inline\DelimitedInterface;
 use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
@@ -86,12 +88,16 @@ class ParseReleasesFromChangelogAction
             $typeNode->detach();
         }
 
-        $parsed['content'] = trim($this->nodeToString($node));
+        $md = new GithubFlavoredMarkdownConverter();
+
+        $parsed['content'] = $md->convertToHtml($this->nodeToString($node));
+
+        $parsed['content'] = Str::replace([ '<p>', '</p>' ], '', $parsed['content']);
 
         return $parsed;
     }
 
-    public function nodeToString(?Node $node, $strict = false, $skipLinks = true)
+    public function nodeToString(?Node $node, $noFormatting = false, $skipLinks = true)
     {
         if ($node === null) {
             return '';
@@ -120,7 +126,7 @@ class ParseReleasesFromChangelogAction
                 }
             }
 
-            if ($strict) {
+            if ($noFormatting) {
                 continue;
             }
 

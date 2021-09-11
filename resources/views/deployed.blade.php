@@ -42,6 +42,15 @@
             margin-left: auto;
         }
 
+        code {
+            padding: .2em .4em;
+            margin: 0;
+            font-size: 85%;
+            background-color: rgba(175, 184, 193, 0.2);
+            border-radius: 6px;
+            font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+        }
+
         h1,h2,h3,h4 {
             font-family: 'Nunito', sans-serif;
             margin: 0;
@@ -82,12 +91,14 @@
             position: relative;
             top: 3px;
 
-            content: "✨ ";
+            content: "{{ config('deployed.default_emoji') }} ";
         }
 
-        li.bug::before {
-            content: "🐛 ";
+        @foreach(config('deployed.emojis') as $key => $emoji)
+        li.{{ $key }}::before {
+            content: "{{ $emoji }} ";
         }
+        @endforeach
     </style>
 </head>
 <body>
@@ -101,7 +112,7 @@
     <main>
         <ul>
             @foreach($notes as $note)
-            <li class="{{ $note['type'] }}">{{ $note['content'] }}
+            <li class="{{ $note['type'] }}">{!! $note['content'] !!}
             @endforeach
         </ul>
     </main>

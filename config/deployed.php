@@ -6,9 +6,18 @@ return [
         'Visit Site' => '{appUrl}',
     ],
 
-    'logo' => asset('img/logo.png'),
+    'logo' => public_path('img/logo.png'),
 
     'slack' => [
         'webhook' => env('DEPLOYED_SLACK_WEBHOOK')
+    ],
+
+    'default_emoji' => '✨',
+
+    'emojis' => [
+        'feature' => '✨',
+        'bug' => '🐛',
+        'docs' => '📝',
+        'tests' => '✅'
     ]
 ];
