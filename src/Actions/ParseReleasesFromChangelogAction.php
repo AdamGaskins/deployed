@@ -15,7 +15,6 @@ use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\Node\Inline\DelimitedInterface;
 use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
-use League\CommonMark\Node\Query;
 use League\CommonMark\Parser\MarkdownParser;
 
 class ParseReleasesFromChangelogAction
