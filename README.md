@@ -1,6 +1,12 @@
-# Deployed
+<p align="center"><a href="https://github.com/AdamGaskins/deployed" alt="deployed on Github"><img src=".github/screenshot.png" /></a></p>
 
-**Deployed** is an opinionated deployment notification generator for Laravel applications.
+<p align="center">An opinionated deployment notification generator for Laravel applications.</p>
+
+<p align="center">
+    <a href="https://packagist.org/packages/adamgaskins/deployed" alt="Latest Version on Packagist"><img src="https://img.shields.io/packagist/v/adamgaskins/deployed.svg?style=for-the-badge"></a>
+    <a href="https://github.com/adamgaskins/deployed/actions?query=workflow%3ATests+branch%3Amaster" alt="GitHub Tests Action Status"><img src="https://img.shields.io/github/workflow/status/adamgaskins/deployed/Tests?logo=Github&style=for-the-badge&label=tests"></a>
+    <a href="https://github.com/AdamGaskins/deployed/blob/main/LICENSE.md"><img alt="GitHub license" src="https://img.shields.io/github/license/AdamGaskins/deployed?style=for-the-badge"></a>
+</p>
 
 ## Installation
 
@@ -65,7 +71,7 @@ Run this command after a successful deploy to send a beautiful slack notificatio
 php artisan deployed --notify
 ```
 
-Deployed will parse the `CHANGELOG.md` in the root of your application. Each version is expected to begin with an h1 and contain a list of changes. For each change in the list, put the type (feature/bug/etc.) in bold at the beginning of the line. Here is an example of a changelog entry, and the resulting notification:
+Deployed will parse the `CHANGELOG.md` in the root of your application. Each version is expected to begin with an h1 and contain a list of changes. For each change in the list, put the type (feature/bug/etc.) in bold at the beginning of the line. Here is an example of a changelog entry that generates the notification at the top of this readme:
 
 ```md
 ### Version 10.3.23
@@ -78,8 +84,6 @@ Deployed will parse the `CHANGELOG.md` in the root of your application. Each ver
 
 ...
 ```
-
-![screenshot](.github/screenshot.png)
 
 ## Testing
 
