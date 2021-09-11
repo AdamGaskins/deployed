@@ -17,8 +17,10 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Node\Query;
 use League\CommonMark\Parser\MarkdownParser;
 
-class ParseReleasesFromChangelog
+class ParseReleasesFromChangelogAction
 {
+    const DEFAULT_TYPE = null;
+
     public function execute()
     {
         $env = new Environment();
@@ -38,6 +40,7 @@ class ParseReleasesFromChangelog
             /** @var Node $node */
             if ($node instanceof Heading) {
                 $currentRelease = preg_replace('/[^0-9]*(.*)/', '$1', $this->nodeToString($node, true, false));
+                $releases[$currentRelease] = [];
             }
 
             if ($currentRelease === null) {
@@ -45,7 +48,7 @@ class ParseReleasesFromChangelog
             }
 
             if ($node instanceof ListBlock) {
-                $releases[$currentRelease] = $this->parseList($node);
+                $releases[$currentRelease] = array_merge($releases[$currentRelease], $this->parseList($node));
             }
         }
 
@@ -70,7 +73,7 @@ class ParseReleasesFromChangelog
 
     public function parseListItem(ListItem $node)
     {
-        $parsed = [ 'type' => null, 'content' => '' ];
+        $parsed = [ 'type' => self::DEFAULT_TYPE, 'content' => '' ];
 
         /** @var Strong $typeNode */
         $typeNode = (new Query())
@@ -83,7 +86,7 @@ class ParseReleasesFromChangelog
             $typeNode->detach();
         }
 
-        $parsed['content'] = $this->nodeToString($node);
+        $parsed['content'] = trim($this->nodeToString($node));
 
         return $parsed;
     }

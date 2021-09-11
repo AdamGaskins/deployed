@@ -3,7 +3,7 @@
 namespace AdamGaskins\Deployed\Commands;
 
 use AdamGaskins\Deployed\Actions\GenerateAndUploadDeployedBannerAction;
-use AdamGaskins\Deployed\Actions\ParseReleasesFromChangelog;
+use AdamGaskins\Deployed\Actions\ParseReleasesFromChangelogAction;
 use AdamGaskins\Deployed\Actions\SendDeployedNotificationAction;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +16,7 @@ class DeployedCommand extends Command
 
     public function handle()
     {
-        $releases = app()->make(ParseReleasesFromChangelog::class)->execute();
+        $releases = app()->make(ParseReleasesFromChangelogAction::class)->execute();
 
         if (! array_key_exists(config('app.version'), $releases)) {
             $this->info('No release notes found in CHANGELOG.md for v' . config('app.version'));
