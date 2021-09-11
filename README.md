@@ -71,7 +71,7 @@ Run this command after a successful deploy to send a beautiful slack notificatio
 php artisan deployed --notify
 ```
 
-Deployed will parse the `CHANGELOG.md` in the root of your application. Each version is expected to begin with an h1 and contain a list of changes. For each change in the list, put the type (feature/bug/etc.) in bold at the beginning of the line. Here is an example of a changelog entry that generates the notification at the top of this readme:
+Deployed will parse the `CHANGELOG.md` in the root of your application. Each version is expected to begin with a heading and contain a list of changes. For each change in the list, put the type (feature/bug/etc.) in bold at the beginning of the line. Here is an example of a changelog entry that generates the notification at the top of this readme:
 
 ```md
 ### Version 10.3.23
