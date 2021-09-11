@@ -1,6 +1,6 @@
 {
     "name": "adamgaskins/deployed",
-    "description": "This is my package deployed",
+    "description": "A package for Laravel apps to send beautiful deployment notifications on Slack.",
     "keywords": [
         "AdamGaskins",
         "laravel",
@@ -34,8 +34,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AdamGaskins\\Deployed\\": "src",
-            "AdamGaskins\\Deployed\\Database\\Factories\\": "database/factories"
+            "AdamGaskins\\Deployed\\": "src"
         }
     },
     "autoload-dev": {

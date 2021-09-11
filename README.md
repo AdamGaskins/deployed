@@ -8,24 +8,52 @@ You can install the package via composer:
 composer require adamgaskins/deployed
 ```
 
-You can publish the config file with:
+You should publish the config file so you can customize the buttons sent with the notification:
 ```bash
 php artisan vendor:publish --provider="AdamGaskins\Deployed\DeployedServiceProvider" --tag="deployed-config"
 ```
 
-This is the contents of the published config file:
+Below are the contents of the published config file. You'll want to at least update `vendor/app` in the Changelog path to point to your app, and make sure you have a white, transparent logo PNG uploaded. 
 
 ```php
 return [
+    'links' => [
+        'Changelog' => 'https://github.com/vendor/app/blob/v{appVersion}/CHANGELOG.md',
+        'Visit Site' => '{appUrl}',
+    ],
+
+    'logo' => public_path('img/logo.png'),
+
+    'slack' => [
+        'webhook' => env('DEPLOYED_SLACK_WEBHOOK')
+    ],
+
+    'default_emoji' => '✨',
+
+    'emojis' => [
+        'feature' => '✨',
+        'bug' => '🐛',
+        'docs' => '📝',
+        'tests' => '✅'
+    ]
 ];
+```
+
+Finally, add the slack webhook to your `.env` file
+
+```dotenv
+DEPLOYED_SLACK_WEBHOOK=https://hooks.slack.com/services/xxx/xxx/xxx
 ```
 
 ## Usage
 
+Run this command after a successful deploy to send a beautiful slack notification with a changelog:
+
 ```php
-$skeleton = new AdamGaskins\Deployed();
-echo $skeleton->echoPhrase('Hello, AdamGaskins!');
+php artisan deployed --notify
 ```
+
+![Screenshot](.github/screenshot.png)
 
 ## Testing
 
