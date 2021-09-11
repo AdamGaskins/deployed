@@ -39,7 +39,6 @@ class ParseReleasesFromChangelogAction
         $currentRelease = null;
 
         foreach ($document->iterator() as $node) {
-            /** @var Node $node */
             if ($node instanceof Heading) {
                 $currentRelease = preg_replace('/[^0-9]*(.*)/', '$1', $this->nodeToString($node, true, false));
                 $releases[$currentRelease] = [];
@@ -66,7 +65,6 @@ class ParseReleasesFromChangelogAction
                 continue;
             }
 
-            /** @var $item ListItem */
             $list[] = $this->parseListItem($item);
         }
 
@@ -90,7 +88,7 @@ class ParseReleasesFromChangelogAction
 
         $md = new GithubFlavoredMarkdownConverter();
 
-        $parsed['content'] = $md->convertToHtml($this->nodeToString($node));
+        $parsed['content'] = $md->convertToHtml($this->nodeToString($node))->getContent();
 
         $parsed['content'] = Str::replace([ '<p>', '</p>' ], '', $parsed['content']);
 
