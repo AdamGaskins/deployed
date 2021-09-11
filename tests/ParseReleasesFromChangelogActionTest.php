@@ -3,7 +3,7 @@
 namespace AdamGaskins\Deployed\Tests;
 
 use AdamGaskins\Deployed\Actions\GetChangelogContentsAction;
-use AdamGaskins\Deployed\Actions\ParseReleasesFromChangelogAction;
+use AdamGaskins\Deployed\Actions\ParseReleasesFromChangelogAction as Action;
 use Mockery\MockInterface;
 
 class ParseReleasesFromChangelogActionTest extends TestCase
@@ -38,13 +38,13 @@ class ParseReleasesFromChangelogActionTest extends TestCase
 
         $this->assertSame([
             '2.0.0' => [
-                [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 1' ],
-                [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 2' ],
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 1' ],
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 2' ],
             ],
             '1.0.0' => [
-                [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 3' ],
-                [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 4' ],
-            ],
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 3' ],
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 4' ],
+            ]
         ], $parsed);
     }
 
@@ -72,6 +72,28 @@ class ParseReleasesFromChangelogActionTest extends TestCase
         ], $parsed);
     }
 
+    /** @test */
+    public function it_extracts_lists_with_markdown()
+    {
+        $parsed = $this->parseMarkdown(<<<MD
+            # 2.0.0
+            - This is some *italic* text
+            - This is some **bold** text
+            # 1.0.0
+            - This is some `code`
+            MD);
+
+        $this->assertSame([
+            '2.0.0' => [
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'This is some <em>italic</em> text' ],
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'This is some <strong>bold</strong> text' ],
+            ],
+            '1.0.0' => [
+                [ 'type' => Action::DEFAULT_TYPE, 'content' => 'This is some <code>code</code>' ],
+            ]
+        ], $parsed);
+    }
+
     protected function parseMarkdown($str)
     {
         $this->mock(
@@ -80,7 +102,7 @@ class ParseReleasesFromChangelogActionTest extends TestCase
             $mock->allows('execute')->andReturn($str)
         );
 
-        return app()->make(ParseReleasesFromChangelogAction::class)
+        return app()->make(Action::class)
             ->execute();
     }
 }

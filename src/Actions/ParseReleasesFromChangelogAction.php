@@ -89,7 +89,7 @@ class ParseReleasesFromChangelogAction
 
         $parsed['content'] = $md->convertToHtml($this->nodeToString($node))->getContent();
 
-        $parsed['content'] = Str::replace([ '<p>', '</p>' ], '', $parsed['content']);
+        $parsed['content'] = trim(Str::replace([ '<p>', '</p>' ], '', $parsed['content']));
 
         return $parsed;
     }
