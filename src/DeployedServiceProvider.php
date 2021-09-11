@@ -16,10 +16,9 @@ class DeployedServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('deployed')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_skeleton_table')
             ->hasCommand(DeployedCommand::class);
     }
 }
