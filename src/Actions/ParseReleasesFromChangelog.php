@@ -11,31 +11,24 @@ use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
-use League\CommonMark\Node\Inline\AbstractInline;
-use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Inline\DelimitedInterface;
 use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Node\Query;
 use League\CommonMark\Parser\MarkdownParser;
-use League\CommonMark\Xml\XmlRenderer;
 
 class ParseReleasesFromChangelog
 {
     public function execute()
     {
-        if (! file_exists(base_path('CHANGELOG.md'))) {
-            throw new \Exception('CHANGELOG.md not found in root of project.');
-        }
-
         $env = new Environment();
         $env->addExtension(new CommonMarkCoreExtension());
 
         $parser = new MarkdownParser($env);
 
-        $document = $parser->parse(file_get_contents(base_path('CHANGELOG.md')));
-
-//        dd((new XmlRenderer($env))->renderDocument($document));
+        $document = $parser->parse(
+            app()->make(GetChangelogContentsAction::class)->execute()
+        );
 
         $releases = [];
 
