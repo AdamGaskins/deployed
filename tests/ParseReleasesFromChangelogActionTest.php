@@ -44,7 +44,7 @@ class ParseReleasesFromChangelogActionTest extends TestCase
             '1.0.0' => [
                 [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 3' ],
                 [ 'type' => Action::DEFAULT_TYPE, 'content' => 'Change 4' ],
-            ]
+            ],
         ], $parsed);
     }
 
@@ -90,7 +90,7 @@ class ParseReleasesFromChangelogActionTest extends TestCase
             ],
             '1.0.0' => [
                 [ 'type' => Action::DEFAULT_TYPE, 'content' => 'This is some <code>code</code>' ],
-            ]
+            ],
         ], $parsed);
     }
 
