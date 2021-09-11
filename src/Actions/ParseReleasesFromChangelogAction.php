@@ -74,15 +74,14 @@ class ParseReleasesFromChangelogAction
     {
         $parsed = [ 'type' => self::DEFAULT_TYPE, 'content' => '' ];
 
-        /** @var Strong $typeNode */
-        $typeNode = (new Query())
-            ->where(Query::type(Strong::class))
-            ->findOne($node);
 
-        if ($typeNode) {
-            $parsed['type'] = Str::lower(trim($this->nodeToString($typeNode, true), ' :'));
+        $paragraph = $node->firstChild();
+        $firstNode = optional($paragraph)->firstChild();
 
-            $typeNode->detach();
+        if ($firstNode && $firstNode instanceof Strong) {
+            $parsed['type'] = Str::lower(trim($this->nodeToString($firstNode, true), ' :'));
+
+            $firstNode->detach();
         }
 
         $md = new GithubFlavoredMarkdownConverter();
