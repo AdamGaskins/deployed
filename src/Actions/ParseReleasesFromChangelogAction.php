@@ -11,7 +11,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 use League\CommonMark\Node\Inline\DelimitedInterface;
 use League\CommonMark\Node\Inline\Text;
@@ -21,7 +20,7 @@ use League\CommonMark\Parser\MarkdownParser;
 
 class ParseReleasesFromChangelogAction
 {
-    const DEFAULT_TYPE = null;
+    public const DEFAULT_TYPE = null;
 
     public function execute()
     {

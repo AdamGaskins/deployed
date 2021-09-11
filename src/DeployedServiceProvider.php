@@ -2,9 +2,9 @@
 
 namespace AdamGaskins\Deployed;
 
+use AdamGaskins\Deployed\Commands\DeployedCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use AdamGaskins\Deployed\Commands\DeployedCommand;
 
 class DeployedServiceProvider extends PackageServiceProvider
 {

@@ -44,7 +44,7 @@ class ParseReleasesFromChangelogActionTest extends TestCase
             '1.0.0' => [
                 [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 3' ],
                 [ 'type' => ParseReleasesFromChangelogAction::DEFAULT_TYPE, 'content' => 'Change 4' ],
-            ]
+            ],
         ], $parsed);
     }
 
@@ -68,7 +68,7 @@ class ParseReleasesFromChangelogActionTest extends TestCase
             '1.0.0' => [
                 [ 'type' => 'docs', 'content' => 'Change 3' ],
                 [ 'type' => 'ajiw_a4j2', 'content' => 'Change 4' ],
-            ]
+            ],
         ], $parsed);
     }
 

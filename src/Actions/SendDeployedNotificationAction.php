@@ -3,11 +3,8 @@
 namespace AdamGaskins\Deployed\Actions;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use SlackPhp\BlockKit\Blocks\Actions;
 use SlackPhp\BlockKit\Formatter;
-use SlackPhp\BlockKit\Kit;
 use SlackPhp\BlockKit\Surfaces\Message;
 
 class SendDeployedNotificationAction

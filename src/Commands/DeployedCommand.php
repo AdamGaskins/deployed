@@ -20,6 +20,7 @@ class DeployedCommand extends Command
 
         if (! array_key_exists(config('app.version'), $releases)) {
             $this->info('No release notes found in CHANGELOG.md for v' . config('app.version'));
+
             return;
         }
 
@@ -28,7 +29,7 @@ class DeployedCommand extends Command
             'appVersion' => config('app.version'),
             'appUrl' => config('app.url'),
             'appLogo' => config('deployed.logo'),
-            'notes' => $releases[config('app.version')]
+            'notes' => $releases[config('app.version')],
         ];
 
         $bannerUrl = app()->make(GenerateAndUploadDeployedBannerAction::class)
@@ -40,6 +41,7 @@ class DeployedCommand extends Command
 
         if (! $this->option('notify')) {
             $this->info('Rerun this command with --notify to send a slack notification.');
+
             return;
         }
 
